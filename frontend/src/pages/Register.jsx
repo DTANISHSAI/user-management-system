@@ -2,6 +2,9 @@ import { useState } from "react";
 
 import api from "../services/api";
 
+import api from "../api/api";
+
+
 import {
     Link,
     useNavigate,
@@ -25,8 +28,7 @@ function Register() {
 
         try {
 
-            await api.post(
-                "/auth/register",
+            await api.post("/users",
                 {
                     name,
                     email,

@@ -83,7 +83,12 @@ public class JwtFilter extends OncePerRequestFilter {
                         .setAuthentication(authToken);
             }
         }
+        String path = request.getRequestURI();
 
+        if (path.startsWith("/auth") || path.equals("/users")) {
+                filterChain.doFilter(request, response);
+                return;
+        }
         filterChain.doFilter(request, response);
     }
 }

@@ -56,7 +56,10 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(
-                List.of("http://localhost:5173")
+                List.of(
+                        "http://localhost:5173",
+                        "https://dtanishsai.github.io"
+                )
         );
 
         configuration.setAllowedMethods(
@@ -109,24 +112,30 @@ public class SecurityConfig {
 
                 // ROUTES
                 .authorizeHttpRequests(auth -> auth
-
-                        // PUBLIC ROUTES
-                        .requestMatchers(
-                                "/auth/**",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html"
-                        ).permitAll()
-
-                        // ALLOW PREFLIGHT REQUESTS
-                        .requestMatchers(
-                                HttpMethod.OPTIONS,
-                                "/**"
-                        ).permitAll()
-
-                        // SECURE EVERYTHING
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .anyRequest().authenticated()
-                )
+                    )
+                // .authorizeHttpRequests(auth -> auth
+
+                //         // PUBLIC ROUTES
+                //         .requestMatchers(
+                //                 "/auth/**",
+                //                 "/v3/api-docs/**",
+                //                 "/swagger-ui/**",
+                //                 "/swagger-ui.html"
+                //         ).permitAll()
+
+                //         // ALLOW PREFLIGHT REQUESTS
+                //         .requestMatchers(
+                //                 HttpMethod.OPTIONS,
+                //                 "/**"
+                //         ).permitAll()
+
+                //         // SECURE EVERYTHING
+                //         .anyRequest().authenticated()
+                // )
 
                 // JWT FILTER
                 .addFilterBefore(

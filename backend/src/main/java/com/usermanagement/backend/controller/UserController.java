@@ -43,7 +43,7 @@ public class UserController {
     public User createUser(@Valid @RequestBody User user) {
 
         // 🔐 ENCRYPT PASSWORD BEFORE SAVING
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+         // user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userService.saveUser(user);
     }

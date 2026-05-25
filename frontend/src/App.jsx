@@ -69,7 +69,9 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+  <BrowserRouter>
+
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
 
       {/* NAVBAR */}
 
@@ -80,55 +82,49 @@ function App() {
           backdropFilter: "blur(10px)",
         }}
       >
-
-        <Link
-          to="/"
-          className="navbar-brand fw-bold"
+        <div
           style={{
-            color: "#14b8a6",
-            fontSize: "1.6rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "10px"
           }}
         >
-          USER MANAGEMENT SYSTEM
-        </Link>
+          <img
+            src="./logo.png"
+            alt="UMS Logo"
+            style={{ height: "36px" }}
+          />
+
+          <span
+            style={{
+              color: "#14b8a6",
+              fontSize: "1.4rem",
+              fontWeight: "645"
+            }}
+          >
+            USER MANAGEMENT SYSTEM
+          </span>
+        </div>
 
         <div className="ms-auto">
 
-          <Link
-            to="/"
-            className="btn btn-outline-dark me-2"
-          >
+          <Link to="/" className="btn btn-outline-dark me-2">
             Home
           </Link>
 
           {!token ? (
-
             <>
-
-              <Link
-                to="/login"
-                className="btn btn-outline-success me-2"
-              >
+              <Link to="/login" className="btn btn-outline-success me-2">
                 Login
               </Link>
 
-              <Link
-                to="/register"
-                className="btn btn-success"
-              >
+              <Link to="/register" className="btn btn-success">
                 Register
               </Link>
-
             </>
-
           ) : (
-
             <>
-
-              <Link
-                to="/users"
-                className="btn btn-outline-dark me-2"
-              >
+              <Link to="/users" className="btn btn-outline-dark me-2">
                 Users
               </Link>
 
@@ -138,49 +134,94 @@ function App() {
               >
                 Logout
               </button>
-
             </>
-
           )}
 
         </div>
-
       </nav>
 
-      {/* ROUTES */}
+      {/* MAIN CONTENT */}
+      <div style={{ flex: 1 }}>
 
-      <Routes>
+        <Routes>
 
-        <Route
-          path="/"
-          element={<Home />}
-        />
+          <Route path="/" element={<Home />} />
 
-        <Route
-          path="/login"
-          element={<Login />}
-        />
+          <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/register"
-          element={<Register />}
-        />
+          <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/users"
-          element={
-            <ProtectedRoute>
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
 
-              <Users />
+        </Routes>
 
-            </ProtectedRoute>
-          }
-        />
+      </div>
 
-      </Routes>
+      {/* FOOTER */}
+<footer
+  style={{
+    borderTop: "1px solid #e5e7eb",
+    padding: "12px 20px",
+    fontSize: "0.85rem",
+    color: "#6b7280",
+    backgroundColor: "#f9fafb",
+    textAlign: "center"
+  }}
+>
+  <span style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
 
-    </BrowserRouter>
-  );
+    {/* COPYRIGHT */}
+    <span>
+      © {new Date().getFullYear()} UMS
+    </span>
+
+    <span>|</span>
+
+    {/* DEVELOPER */}
+    <span style={{ opacity: 1.0 }}>
+      Developed by{" "}
+      <a
+        href="https://dtanishsai.in"
+        target="_blank"
+        style={{
+          textDecoration: "none",
+          color: "#14b8a6"
+        }}
+      >
+        Tanishsai Dusanapudi
+      </a>
+    </span>
+
+    <span>|</span>
+
+    {/* INDIA + FLAG */}
+    <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+      <img
+        src="./india.png"   // 🔥 put your image in /public
+        alt="India"
+        style={{
+          width: "18px",
+          height: "12px",
+          objectFit: "cover",
+          borderRadius: "2px"
+        }}
+      />
+      INDIA
+    </span>
+
+  </span>
+</footer>
+    </div>
+
+  </BrowserRouter>
+);
 }
 
 export default App;
